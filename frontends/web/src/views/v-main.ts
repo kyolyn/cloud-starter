@@ -2,7 +2,7 @@ import { position } from '@dom-native/draggable';
 import { getRouteWksId, pathAt } from 'common/route.js';
 import { logoff, UserContext } from 'common/user-ctx.js';
 import { BaseViewElement } from 'common/v-base.js';
-import { append, customElement, first, frag, on, onEvent, onHub, push } from 'dom-native';
+import { append, customElement, elem, first, frag, on, onEvent, onHub, push } from 'dom-native';
 import { isNotEmpty } from 'utils-min';
 
 const defaultPath = "";
@@ -48,6 +48,9 @@ export class MainView extends BaseViewElement {
 			on(menu, 'pointerup', 'li.do-logoff', async (evt) => {
 				await logoff();
 				window.location.href = '/';
+			});
+			on(menu, 'pointerup', 'li.show-profile', async (evt) => {
+				append(document.body, elem('dg-slide'));
 			});
 		}
 	}
