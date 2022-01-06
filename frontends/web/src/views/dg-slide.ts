@@ -1,5 +1,5 @@
 import { BaseViewElement } from 'common/v-base.js';
-import { adoptStyleSheets, css, customElement, first, html, onEvent } from 'dom-native';
+import { adoptStyleSheets, css, customElement, first, html, on, onEvent } from 'dom-native';
 const { assign } = Object;
 
 
@@ -42,7 +42,9 @@ const _compCss = css`
 	
 	/* style slot placehold as well */
 	.title > *, .title > ::slotted(*){
-		font-size: 1.2rem;
+		font-size: 1.4rem;
+		color:#838b8b；
+		font-weight:bold;
 	}
 
 	header c-ico{
@@ -80,10 +82,10 @@ export class DgSlide extends BaseViewElement {
 
 	@onEvent('pointerup', '.do-close')
 	doOk() {
-		first(this.shadowRoot, ".panel")?.classList.remove("show");
-		setTimeout(() => {
+		on(first(this.shadowRoot, ".panel")!, "transitionend", () => {
 			this.remove();
-		}, 1000);
+		});
+		first(this.shadowRoot, ".panel")?.classList.remove("show");
 	}
 
 
@@ -93,11 +95,11 @@ export class DgSlide extends BaseViewElement {
 			<div slot="title">User Profile</div>
 
 			<div class="panel-content">
-				<div class="username">Admin</div>
+				<div class="user-name">Admin</div>
 				<div></div>
-				<div class="username1">admin</div>
+				<div class="user-name1">admin</div>
 				<div></div>
-				<div class="rolename">Role: unknown</div>
+				<div class="role-name">Role: unknown</div>
 				<div class="since">Member since: unknown</div>
 			</div>
 		`;
